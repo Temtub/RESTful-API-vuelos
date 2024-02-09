@@ -19,9 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 //    } else {
 //        
 //    }
-    
+
     //Get from the model of vuelos all the vuelos as a json
-    $vuelosJson = $vuelos->getAllVuelos();
-//    print_r($vuelosJson);
+    try {
+        $vuelosJson = $vuelos->getAllVuelos();
+    } catch (Exception $ex) {
+        echo "Error consiguiendo vuelos, pruebe más tarde.";
+        exit;
+    }
+    
+    print_r($vuelosJson);
     
 }//End of GET checking
