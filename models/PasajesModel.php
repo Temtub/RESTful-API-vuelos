@@ -25,13 +25,21 @@ class PasajesModel {
             $sentencia->bindParam(5, $pvp);
             
             if(!$sentencia->execute()){
-                return "Error al grabar.". $e->getMessage();
+                return "Error al grabar execute.". $e->getMessage();
             }
             
             return "Registro insertado correctamente."; 
             
         } catch (PDOException $e) {
-            return "Error al grabar.<br>". $e->getMessage();
+                
+            //Check if the variable contains already that id's
+            if(str_contains($e->getMessage(), "Integrity constraint violation: 1062") ){
+                return "Ese pasaje ya está creado.";
+            }
+            
+            //If not exists then it means that it was another error
+            //return "Error al grabar catch.<br>". $e->getMessage()." con coCODIGO ".$e->getCode();
+            return "Error al grabar, vuelve a intentarlo.";
         }
     } 
 }
