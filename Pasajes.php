@@ -27,3 +27,26 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
     //Exit
     exit();
 }
+
+//Methods for GET
+if( $_SERVER['REQUEST_METHOD'] === 'GET'){
+
+    if(isset($_GET['id']) ){
+        
+        try {
+            
+            $res = $reservas->eliminarPasaje(filter_input(INPUT_GET, "id") );
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+
+    }
+    
+    //Put the result in an array
+    $resul['resultado'] = $res;
+    
+    //Show the array with the result as a json
+    echo json_encode($resul);
+    //Exit
+    exit();
+}

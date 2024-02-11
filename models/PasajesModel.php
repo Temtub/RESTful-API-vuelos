@@ -42,4 +42,18 @@ class PasajesModel {
             return "Error al grabar, vuelve a intentarlo.";
         }
     } 
+    
+    public function eliminarPasaje($id) {
+        
+        //Prepare for deleting the pasaje
+        $sql = $this->pdo->prepare("DELETE FROM pasaje WHERE `pasaje`.`idpasaje` = ? ");
+        
+        $sql->bindParam(1, $id);
+        
+        if(!$sql->execute()){
+            return "Error al eliminar el pasaje, vuelve a intentarlo.";
+        }
+        
+        return "Pasaje ".$id." eliminado correctamente.";
+    }
 }
