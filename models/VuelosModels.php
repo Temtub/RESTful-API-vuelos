@@ -24,7 +24,10 @@ class VuelosModels {
         aero2.nombre AS aeropuertodestino, 
         aero2.pais AS paisdestino,
         COUNT(pasaje.identificador) AS numeropasajeros
-        FROM aeropuerto aero1 RIGHT JOIN vuelo ON vuelo.aeropuertoorigen  = aero1.codaeropuerto RIGHT JOIN aeropuerto aero2 ON aero2.codaeropuerto = vuelo.aeropuertodestino LEFT JOIN pasaje ON pasaje.identificador = vuelo.identificador
+        FROM aeropuerto aero1 
+        RIGHT JOIN vuelo ON vuelo.aeropuertoorigen  = aero1.codaeropuerto 
+        RIGHT JOIN aeropuerto aero2 ON aero2.codaeropuerto = vuelo.aeropuertodestino 
+        LEFT JOIN pasaje ON pasaje.identificador = vuelo.identificador
         GROUP BY vuelo.identificador');
         
         //Say that want to bring an indexed array by name
@@ -37,5 +40,16 @@ class VuelosModels {
         
         //Return all the vuelos as a json
         return json_encode($stmt->fetchAll() );
-    }   
+    }  
+    
+    public function getOneVuelo($id){
+        $stmt = $this->pdo->prepare('SELECT * FROM vuelo WHERE identificador = ?');
+        $stmt->bindParam(1, $id);
+        
+        $finish = $stmt->execute();
+        
+            
+        return $finish; 
+    }
+    
 }

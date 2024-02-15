@@ -12,13 +12,17 @@ $vuelos = new VuelosModels();
 //Check if any data has been sent by get
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
-//    if (isset($_GET['id'])) {
-//        $res = $dep->getUnDepartamento($_GET['id']);
-//        echo json_encode($res);
-//        exit();
-//    } else {
-//        
-//    }
+    //If isset the id of the vuelo, then gets only a fly
+    if (isset($_GET['id']) ){
+        //Get the id
+        $id = filter_input(INPUT_GET, "id");
+                
+        //Get the vuelo based of the id
+        $vuelo = $vuelos->getOneVuelo($id);
+        //Show the array
+        echo json_encode($vuelo);
+        exit();
+    }
 
     //Get from the model of vuelos all the vuelos as a json
     try {
