@@ -56,4 +56,33 @@ class PasajesModel {
         
         return "Pasaje ".$id." eliminado correctamente.";
     }
+    
+    public function actualizarPasaje($pasaje) {
+        $sql = "UPDATE pasaje SET pasajerocod = ?, identificador = ?, numasiento=?, clase=?, pvp=?  WHERE idpasaje = ?";
+        
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindParam(1, $pasaje['pasajerocod']);
+            $statement->bindParam(2, $pasaje['identificador']);
+            $statement->bindParam(3, $pasaje['numasiento']);
+            $statement->bindParam(4, $pasaje['clase']);
+            $statement->bindParam(5, $pasaje['pvp']);
+            $statement->bindParam(6, $pasaje['idpasaje']);
+
+            
+            if ($statement->execute()) {
+                return "El pasaje ".$pasaje['idpasaje']. " ha sido actualizado correctamente.";
+            } else {
+                return "Error actualizando el pasáje, no se ha podido actualizar.";
+            }
+        } catch (Exception $e) {
+            //Check if the variable contains already that id's
+            if(str_contains($e->getMessage(), "Integrity constraint violation: 1062") ){
+                return "Ese pasaje ya está creado.";
+            }
+            
+//            return "ERROR AL ACTUALIZAR: " . $e->getMessage();
+            return "Ha ocurrido un error borrando, pruebe de nuevo.";
+        }
+    }
 }

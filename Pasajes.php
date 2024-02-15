@@ -29,7 +29,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 //Methods for GET
-if( $_SERVER['REQUEST_METHOD'] === 'GET'){
+if( $_SERVER['REQUEST_METHOD'] === 'DELETE'){
 
     if(isset($_GET['id']) ){
         
@@ -50,3 +50,23 @@ if( $_SERVER['REQUEST_METHOD'] === 'GET'){
     //Exit
     exit();
 }
+
+if( $_SERVER['REQUEST_METHOD'] === 'PUT'){
+    
+    $putData = json_decode(file_get_contents('php://input'), true);
+    
+    
+    
+    (!isset($putData['idpasaje'])|| !isset($putData['pasajerocod'])|| !isset($putData['identificador'])|| !isset($putData['numasiento'])|| !isset($putData['clase']) || !isset($putData['pvp']) ) ?
+    ($res = "Recuerda, para actualizar as de rellenar todos los datos." ) :
+    ($res = $reservas->actualizarPasaje($putData) );
+    
+    //Put the result in an array
+    $resul['resultado'] = $res;
+    
+    //Show the array with the result as a json
+    echo json_encode($resul);
+    //Exit
+    exit();
+}
+
