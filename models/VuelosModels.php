@@ -26,10 +26,10 @@ class VuelosModels {
         aero2.pais AS paisdestino,
         COUNT(pasaje.identificador) AS numeropasajeros
         FROM aeropuerto aero1 
-        RIGHT JOIN vuelo ON vuelo.aeropuertoorigen = aero1.codaeropuerto 
+        RIGHT JOIN vuelo ON vuelo.aeropuertoorigen  = aero1.codaeropuerto 
         RIGHT JOIN aeropuerto aero2 ON aero2.codaeropuerto = vuelo.aeropuertodestino 
         LEFT JOIN pasaje ON pasaje.identificador = vuelo.identificador
-        WHERE vuelo.identificador = ?');
+        GROUP BY vuelo.identificador');
         
         //Say that want to bring an indexed array by name
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
