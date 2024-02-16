@@ -19,9 +19,10 @@ class VuelosModels {
         vuelo.aeropuertoorigen, 
         vuelo.aeropuertodestino, 
         vuelo.tipovuelo, 
-        aero1.nombre AS aeropuertoorigen, 
+        vuelo.fechavuelo,
+        aero1.nombre AS nombreaeropuertoorigen, 
         aero1.pais AS paisorigen, 
-        aero2.nombre AS aeropuertodestino, 
+        aero2.nombre AS nombreaeropuertodestino, 
         aero2.pais AS paisdestino,
         COUNT(pasaje.identificador) AS numeropasajeros
         FROM aeropuerto aero1 
