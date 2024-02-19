@@ -13,7 +13,7 @@ $reservas = new PasajesModel();
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
     
     $postData = json_decode(file_get_contents('php://input'), true);
-   
+    
     //ternary operator for checking if all the data has been bringed correctly or else create a message to say to the user
     (!isset($postData['pasajerocod'])|| !isset($postData['identificador'])|| !isset($postData['numasiento'])|| !isset($postData['clase'])|| !isset($postData['pvp']) ) ?
     ($res = "Recuerda rellenar todos los datos." ) :
