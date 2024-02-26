@@ -70,3 +70,19 @@ if( $_SERVER['REQUEST_METHOD'] === 'PUT'){
     exit();
 }
 
+if( $_SERVER['REQUEST_METHOD'] === 'GET'){
+    
+    if(isset($_GET['id']) ){
+        $id = filter_input(INPUT_GET, "id");
+        
+        $vuelos = $reservas->getVuelosFromPasaje($id);
+        //Put the result in an array
+        $resul['resultado'] = $vuelos;
+
+        //Show the array with the result as a json
+        print_r( json_encode($resul));
+        //Exit
+        exit();
+    }
+}
+

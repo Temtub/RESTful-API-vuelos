@@ -85,4 +85,26 @@ class PasajesModel {
             return "Ha ocurrido un error borrando, pruebe de nuevo.";
         }
     }
+    
+    
+    public function getVuelosFromPasaje($id) {
+        $sql = "SELECT pasaje.idpasaje, pasaje.pasajerocod, pasajero.nombre, pasajero.pais, pasaje.numasiento, pasaje.clase, pasaje.pvp "
+                . "FROM pasaje JOIN pasajero ON pasaje.pasajerocod = pasajero.pasajerocod "
+                . "WHERE pasaje.identificador = ?;";
+        
+        
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindParam(1, $id);
+            
+            //Say that want to bring an indexed array by name
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
+        
+        //If theres an error in this part it throws an exception
+        if(!$statement->execute()){
+            throw new PDOException("Error consiguiendo pasajes de vuelo".$id);
+        }
+        
+        //Return all the vuelos as a json
+        return $statement->fetchAll();
+    }
 }
